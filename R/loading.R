@@ -1,7 +1,12 @@
+print_info <- function() {
+
+}
+
 load_h5 <- function(file, dataset = NULL) {
   if (is.null(dataset)) {
     # load everything
     res <- h5read(file, name = "/")
+    # print information on simulation here
     return(res)
   } else {
     # load the specified dataset
