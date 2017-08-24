@@ -2,6 +2,21 @@ print_info <- function() {
 
 }
 
+#' Load an hdf5 file produced by the Fisher Stepping Stone model.
+#'
+#' @description Load an hdf5 file produced by the Fisher Stepping Stone model,
+#' either entirelly or only for a specified dataset.
+#'
+#' @param file Path to the file.
+#' @param dataset optional specific dataset to open
+#'
+#' @return A list containing all datasets and parameters from the file.
+#' Or a simple array when a specific dataset is chosen.
+#'
+#' @examples
+#' file <- system.file("extdata", "result_sim.h5", package = "rfss")
+#' result_sim <- load_h5(file)
+#'
 #' @export
 load_h5 <- function(file, dataset = NULL) {
   if (is.null(dataset)) {
