@@ -1,4 +1,5 @@
 #' @import ggplot2
+#' @export
 plot_timestep <- function(data, gen = 1, message = T) {
   # find index of generation or closest one
   if (gen %in% data$savedGen) {
