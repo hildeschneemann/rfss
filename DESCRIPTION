@@ -1,11 +1,16 @@
 Package: rfss
 Type: Package
-Title: What the Package Does (Title Case)
+Title: R package to deal with Fisher Stepping Stone output
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: person("Alexis", "Simon", email = "alexis.simon@normalesup.org",
+  role = c("aut", "cre"))
+Description: Helper function to load, manipulate and plot output data from
+	Fisher Stepping Stone c++ program.
+	Those outputs are in the hdf5 format.
+License: 
 Encoding: UTF-8
 LazyData: true
+Imports:
+    dplyr,
+    ggplot2,
+    rhdf5
