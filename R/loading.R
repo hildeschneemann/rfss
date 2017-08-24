@@ -6,6 +6,7 @@ load_h5 <- function(file, dataset = NULL) {
   if (is.null(dataset)) {
     # load everything
     res <- h5read(file, name = "/")
+    res$parameters <- h5readAttributes(file, "alleleFreq")
     # print information on simulation here
     return(res)
   } else {
