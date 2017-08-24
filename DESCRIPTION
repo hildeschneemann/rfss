@@ -7,7 +7,7 @@ Authors@R: person("Alexis", "Simon", email = "alexis.simon@normalesup.org",
 Description: Helper function to load, manipulate and plot output data from
 	Fisher Stepping Stone c++ program.
 	Those outputs are in the hdf5 format.
-License: 
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
