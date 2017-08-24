@@ -13,4 +13,5 @@ LazyData: true
 Imports:
     dplyr,
     ggplot2,
+    reshape2,
     rhdf5
