@@ -1,3 +1,4 @@
+#' @import ggplot2
 plot_timestep <- function(data, gen = 1, message = T) {
   # find index of generation or closest one
   if (gen %in% data$savedGen) {
@@ -9,11 +10,11 @@ plot_timestep <- function(data, gen = 1, message = T) {
       cat("Plotting the closest generation available: ", gen)
   }
 
-  allele_freq <- melt(data$alleleFreq[,,igen],
+  allele_freq <- reshape2::melt(data$alleleFreq[,,igen],
                       varnames = c("deme","locus"), value.name = "freq")
   allele_freq$locus <- as.factor(allele_freq$locus)
 
-  cols <- diverge_hcl(dim(data$alleleFreq)[2])
+  cols <- colorspace::diverge_hcl(dim(data$alleleFreq)[2])
 
   f <- ggplot(allele_freq, aes(x = deme, y = freq, colour = locus)) +
     geom_line() +
@@ -29,7 +30,7 @@ plot_timestep <- function(data, gen = 1, message = T) {
     labs(x = "demes", y = "mean w") +
     theme_classic()
 
-  grid.arrange(w, f, nrow = 4, ncol = 1,
-               layout_matrix = matrix(c(1,2,2,2)),
-               top = paste("generation", gen))
+  gridExtra::grid.arrange(w, f, nrow = 4, ncol = 1,
+                          layout_matrix = matrix(c(1,2,2,2)),
+                          top = paste("generation", gen))
 }
