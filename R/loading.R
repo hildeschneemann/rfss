@@ -2,6 +2,7 @@ print_info <- function() {
 
 }
 
+#' @export
 load_h5 <- function(file, dataset = NULL) {
   if (is.null(dataset)) {
     # load everything
