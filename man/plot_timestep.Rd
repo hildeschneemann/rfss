@@ -4,10 +4,10 @@
 \alias{plot_timestep}
 \title{Combined plot of mean fitness and allele frequencies for each deme}
 \usage{
-plot_timestep(data, gen = 1, message = T)
+plot_timestep(res, gen = 1, message = T)
 }
 \arguments{
-\item{data}{A dataset produced by \code{\link{load_h5}}.}
+\item{res}{A dataset produced by \code{\link{load_h5}}.}
 
 \item{gen}{The generation at which you whish to plot (default 1).}
 

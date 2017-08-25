@@ -1,6 +1,6 @@
 #' Combined plot of mean fitness and allele frequencies for each deme
 #'
-#' @param data A dataset produced by \code{\link{load_h5}}.
+#' @param res A dataset produced by \code{\link{load_h5}}.
 #' @param gen The generation at which you whish to plot (default 1).
 #' @param message Option to remove the message indicating the closest real
 #' generation available that has been plotted (default TRUE).
@@ -14,22 +14,23 @@
 #'
 #' @import ggplot2
 #' @export
-plot_timestep <- function(data, gen = 1, message = T) {
+
+plot_timestep <- function(res, gen = 1, message = T) {
   # find index of generation or closest one
-  if (gen %in% data$savedGen) {
-    igen <- which(data$savedGen == gen)
+  if (gen %in% res$savedGen) {
+    igen <- which(res$savedGen == gen)
   } else {
-    igen <- which.min(abs(data$savedGen - gen))
-    gen <- data$savedGen[igen]
+    igen <- which.min(abs(res$savedGen - gen))
+    gen <- res$savedGen[igen]
     if (message)
       cat("Plotting the closest generation available: ", gen)
   }
 
-  allele_freq <- reshape2::melt(data$alleleFreq[,,igen],
+  allele_freq <- reshape2::melt(res$alleleFreq[,,igen],
                       varnames = c("deme","locus"), value.name = "freq")
   allele_freq$locus <- as.factor(allele_freq$locus)
 
-  cols <- colorspace::diverge_hcl(dim(data$alleleFreq)[2])
+  cols <- colorspace::diverge_hcl(dim(res$alleleFreq)[2])
 
   f <- ggplot(allele_freq, aes(x = deme, y = freq, colour = locus)) +
     geom_line() +
@@ -40,7 +41,7 @@ plot_timestep <- function(data, gen = 1, message = T) {
     theme(legend.position = "none")
 
 
-  w <- qplot(seq(1, dim(data$w)[1]), data$w[,igen], geom = "line") +
+  w <- qplot(seq(1, dim(res$w)[1]), res$w[,igen], geom = "line") +
     ylim(c(0, 1)) +
     labs(x = "demes", y = "mean w") +
     theme_classic()
@@ -48,4 +49,52 @@ plot_timestep <- function(data, gen = 1, message = T) {
   gridExtra::grid.arrange(w, f, nrow = 4, ncol = 1,
                           layout_matrix = matrix(c(1,2,2,2)),
                           top = paste("generation", gen))
+}
+
+#' Produce an animation combining all generations
+#'
+#' @description Produce an animation combining all generations as an html file.
+#'
+#' @param res A dataset produced by \code{\link{load_h5}}.
+#' @param outdir Where to save the html file.
+#'
+#' @return html file, images/ folder, css/ folder and js/ folder.
+#'
+#' @examples
+#' data(result_sim)
+#' plot_animation(result_sim)
+#'
+#' @export
+
+plot_animation <- function(res, outdir = "./") {
+  oopt <- animation::ani.options(interval = 0.1)
+
+  anim_fun <- function() {
+    lapply(res$savedGen, function(g) {
+      plot_timestep(res, gen = g)
+      animation::ani.pause()
+    })
+  }
+
+  outfile <- paste0(outdir, "anim_",
+                    "d", res$parameters$d, "_",
+                    "N", res$parameters$N, "_",
+                    "mig", res$parameters$mig, "_",
+                    "b", res$parameters$b, "_",
+                    "n", res$parameters$n, "_",
+                    "m", res$parameters$m, "_",
+                    "sig", res$parameters$sig, "_",
+                    "diff", res$parameters$diff, "_",
+                    "Q", res$parameters$Q, "_",
+                    "U", res$parameters$U, "_",
+                    "nbS", res$parameters$nbS, "_",
+                    "L", res$parameters$L, "_",
+                    "T1", res$parameters$T1, "_",
+                    "T2", res$parameters$T2, "_",
+                    "T3", res$parameters$T3, "_",
+                    res$parameters$no,
+                    ".html")
+
+  animation::saveHTML(anim_fun(), autoplay = FALSE, loop = FALSE, verbose = FALSE, htmlfile = outfile,
+           single.opts = "'controls': ['first', 'previous', 'play', 'next', 'last', 'loop', 'speed'], 'delayMin': 0")
 }
