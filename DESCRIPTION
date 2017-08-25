@@ -12,7 +12,6 @@ Encoding: UTF-8
 LazyData: true
 Imports:
 	colorspace,
-    dplyr,
     ggplot2,
     gridExtra,
     reshape2,
