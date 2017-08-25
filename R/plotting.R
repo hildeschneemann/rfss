@@ -56,7 +56,6 @@ plot_timestep <- function(res, gen = 1, message = T) {
 #' @description Produce an animation combining all generations as an html file.
 #'
 #' @param res A dataset produced by \code{\link{load_h5}}.
-#' @param outdir Where to save the html file.
 #'
 #' @return html file, images/ folder, css/ folder and js/ folder.
 #'
@@ -66,7 +65,7 @@ plot_timestep <- function(res, gen = 1, message = T) {
 #'
 #' @export
 
-plot_animation <- function(res, outdir = "./") {
+plot_animation <- function(res) {
   oopt <- animation::ani.options(interval = 0.1)
 
   anim_fun <- function() {
@@ -76,25 +75,32 @@ plot_animation <- function(res, outdir = "./") {
     })
   }
 
-  outfile <- paste0(outdir, "anim_",
-                    "d", res$parameters$d, "_",
-                    "N", res$parameters$N, "_",
-                    "mig", res$parameters$mig, "_",
-                    "b", res$parameters$b, "_",
-                    "n", res$parameters$n, "_",
-                    "m", res$parameters$m, "_",
-                    "sig", res$parameters$sig, "_",
-                    "diff", res$parameters$diff, "_",
-                    "Q", res$parameters$Q, "_",
-                    "U", res$parameters$U, "_",
-                    "nbS", res$parameters$nbS, "_",
-                    "L", res$parameters$L, "_",
-                    "T1", res$parameters$T1, "_",
-                    "T2", res$parameters$T2, "_",
-                    "T3", res$parameters$T3, "_",
-                    res$parameters$no,
-                    ".html")
+  outdir <- paste0("anim_",
+                   "d", res$parameters$d, "_",
+                   "N", res$parameters$N, "_",
+                   "mig", res$parameters$mig, "_",
+                   "b", res$parameters$b, "_",
+                   "n", res$parameters$n, "_",
+                   "m", res$parameters$m, "_",
+                   "sig", res$parameters$sig, "_",
+                   "diff", res$parameters$diff, "_",
+                   "Q", res$parameters$Q, "_",
+                   "U", res$parameters$U, "_",
+                   "nbS", res$parameters$nbS, "_",
+                   "L", res$parameters$L, "_",
+                   "T1", res$parameters$T1, "_",
+                   "T2", res$parameters$T2, "_",
+                   "T3", res$parameters$T3, "_",
+                   res$parameters$no)
+  dir.create(outdir, showWarnings = F)
+  #outfile <- paste0(outdir, "/animation.html")
+  saved_wd <- getwd()
+  setwd(outdir)
 
-  animation::saveHTML(anim_fun(), autoplay = FALSE, loop = FALSE, verbose = FALSE, htmlfile = outfile,
-           single.opts = "'controls': ['first', 'previous', 'play', 'next', 'last', 'loop', 'speed'], 'delayMin': 0")
+  animation::saveHTML(anim_fun(), autoplay = FALSE, loop = FALSE,
+                      verbose = FALSE, htmlfile = "animation.html",
+                      single.opts = "'controls': ['first', 'previous', 'play',
+                      'next', 'last', 'loop', 'speed'], 'delayMin': 0")
+
+  setwd(saved_wd)
 }

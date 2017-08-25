@@ -4,12 +4,10 @@
 \alias{plot_animation}
 \title{Produce an animation combining all generations}
 \usage{
-plot_animation(res, outdir = "./")
+plot_animation(res)
 }
 \arguments{
 \item{res}{A dataset produced by \code{\link{load_h5}}.}
-
-\item{outdir}{Where to save the html file.}
 }
 \value{
 html file, images/ folder, css/ folder and js/ folder.
