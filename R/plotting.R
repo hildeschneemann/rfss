@@ -88,12 +88,11 @@ plot_animation <- function(res) {
                    "U", res$parameters$U, "_",
                    "nbS", res$parameters$nbS, "_",
                    "L", res$parameters$L, "_",
-                   "T1", res$parameters$T1, "_",
-                   "T2", res$parameters$T2, "_",
-                   "T3", res$parameters$T3, "_",
+                   "Ts", res$parameters$T1, "-",
+                   res$parameters$T2, "-",
+                   res$parameters$T3, "-",
                    res$parameters$no)
   dir.create(outdir, showWarnings = F)
-  #outfile <- paste0(outdir, "/animation.html")
   saved_wd <- getwd()
   setwd(outdir)
 
