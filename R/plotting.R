@@ -84,6 +84,7 @@ plot_animation <- function(res) {
                    "m", res$parameters$m, "_",
                    "sig", res$parameters$sig, "_",
                    "diff", res$parameters$diff, "_",
+		   "a", res$parameters$a, "_",
                    "Q", res$parameters$Q, "_",
                    "U", res$parameters$U, "_",
                    "nbS", res$parameters$nbS, "_",
