@@ -92,7 +92,7 @@ plot_animation <- function(res) {
                    "Ts", res$parameters$T1, "_",
                    "ff1", res$parameters$ff1, "_",
                    "fp", res$parameters$fp, "_",
-		   "r", res$parameters$r, "_"
+		   "r", res$parameters$r, "_",
                    res$parameters$no)
   dir.create(outdir, showWarnings = F)
   saved_wd <- getwd()
