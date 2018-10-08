@@ -89,9 +89,10 @@ plot_animation <- function(res) {
                    "U", res$parameters$U, "_",
                    "nbS", res$parameters$nbS, "_",
                    "L", res$parameters$L, "_",
-                   "Ts", res$parameters$T1, "-",
-                   res$parameters$T2, "-",
-                   res$parameters$T3, "-",
+                   "Ts", res$parameters$T1, "_",
+                   "ff1", res$parameters$ff1, "_",
+                   "fp", res$parameters$fp, "_",
+		   "r", res$parameters$r, "_"
                    res$parameters$no)
   dir.create(outdir, showWarnings = F)
   saved_wd <- getwd()
